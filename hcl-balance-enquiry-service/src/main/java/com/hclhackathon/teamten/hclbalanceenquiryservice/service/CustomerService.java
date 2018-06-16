@@ -2,6 +2,7 @@ package com.hclhackathon.teamten.hclbalanceenquiryservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class CustomerService {
 		return Customers;
 	}
 
-	public Customer getCustomer(int CustomerId){
-		return customerRepository.findById(CustomerId).get();
+	public Optional<Customer> getCustomer(int CustomerId){
+		return customerRepository.findById(CustomerId);
 	}
 	
 	

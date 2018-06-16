@@ -1,7 +1,12 @@
 package com.hclhackathon.teamten.hclbalanceenquiryservice.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /*
@@ -16,6 +21,17 @@ public class Customer {
 	@Id
 	private int cust_id;
 	private String cust_name;
+	
+	@OneToMany
+	@JoinColumn(name = "cust_id", referencedColumnName="cust_id")
+	private List<Account> accounts = new ArrayList<Account>();	
+	
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
 	public int getCust_id() {
 		return cust_id;
 	}

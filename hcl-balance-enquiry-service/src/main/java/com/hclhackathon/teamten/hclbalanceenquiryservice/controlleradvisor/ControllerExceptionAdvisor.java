@@ -3,6 +3,7 @@ package com.hclhackathon.teamten.hclbalanceenquiryservice.controlleradvisor;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hclhackathon.teamten.hclbalanceenquiryservice.entity.ExceptionFormat;
 import com.hclhackathon.teamten.hclbalanceenquiryservice.exception.AccountNotFoundException;
+import com.hclhackathon.teamten.hclbalanceenquiryservice.exception.CustomerNotFoundException;
 import com.hclhackathon.teamten.hclbalanceenquiryservice.exception.ReqTypeNotValidException;
 
 @ControllerAdvice
@@ -34,30 +36,62 @@ public class ControllerExceptionAdvisor {
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public @ResponseBody ExceptionFormat handleAccountNotFoundException( 
 			final AccountNotFoundException exception, final HttpServletRequest request){
-			
+
 		ExceptionFormat ExceptionFormat = new ExceptionFormat();
-		
+
 		ExceptionFormat.setErrorMessage(exception.getMessage());
 		ExceptionFormat.setErrorCode(HttpStatus.NOT_FOUND.value());
 		ExceptionFormat.setCallerURI(request.getRequestURI());
-		
+
 		return ExceptionFormat;
-	
+
 	}	
-	
+
 	@ExceptionHandler(ReqTypeNotValidException.class)
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	public @ResponseBody ExceptionFormat handleReqTypeException( 
 			final ReqTypeNotValidException exception, final HttpServletRequest request){
-			
+
 		ExceptionFormat ExceptionFormat = new ExceptionFormat();
-		
+
 		ExceptionFormat.setErrorMessage(exception.getMessage());
 		ExceptionFormat.setErrorCode(HttpStatus.CONFLICT.value());
 		ExceptionFormat.setCallerURI(request.getRequestURI());
-		
+
 		return ExceptionFormat;
-	
+
 	}	
-	
+
+
+	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public @ResponseBody ExceptionFormat handleNotSupportedActionException( 
+			final HttpRequestMethodNotSupportedException exception, final HttpServletRequest request){
+
+		ExceptionFormat exceptionFormat = new ExceptionFormat();
+
+		exceptionFormat.setErrorMessage("This action is NOT support: "+request.getMethod());
+		exceptionFormat.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		exceptionFormat.setCallerURI(request.getRequestURI());
+
+		return exceptionFormat;
+
+	}	
+
+
+	@ExceptionHandler(CustomerNotFoundException.class)
+	@ResponseStatus()
+	public @ResponseBody ExceptionFormat handleCustomerNotFoundException(
+			final CustomerNotFoundException exception, final HttpServletRequest request){
+
+		ExceptionFormat exceptionFormat = new ExceptionFormat();
+
+		exceptionFormat.setErrorMessage(exception.getMessage());
+		exceptionFormat.setErrorCode(HttpStatus.CONFLICT.value());
+		exceptionFormat.setCallerURI(request.getRequestURI());
+
+		return exceptionFormat;
+	}
+
 }
+

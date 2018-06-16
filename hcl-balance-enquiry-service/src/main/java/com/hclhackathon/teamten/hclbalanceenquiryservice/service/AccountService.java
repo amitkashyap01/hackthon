@@ -30,8 +30,8 @@ public class AccountService {
 	}
 	
 	
-	public Account getCustAccountBalance(int custId){
-		Account account = null;
+	public List<Account> getCustAccountBalance(int custId){
+		List<Account> account = null;
 		
 		try{
 			account = accountRepository.findByCustId(custId).get();		
