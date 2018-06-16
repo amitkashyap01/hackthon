@@ -6,31 +6,62 @@ import javax.persistence.Table;
 
 /*
  * Author: Amit Kashyap
- * Description: Account entity
- * */
+ */
+
 
 @Entity
-@Table (name="Account")
+@Table (name = "Account")
 public class Account {
-
 	@Id
-	private int cust_id;
-	private String cust_name;
-	public int getCust_id() {
-		return cust_id;
+	private int id;
+	private int accnum;
+	private String actccy;
+	private String acttype;
+	private int balance;
+	private int custId;
+	public int getId() {
+		return id;
 	}
-	public void setCust_id(int cust_id) {
-		this.cust_id = cust_id;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getCust_name() {
-		return cust_name;
+	public int getAccnum() {
+		return accnum;
 	}
-	public void setCust_name(String cust_name) {
-		this.cust_name = cust_name;
+	public void setAccnum(int accnum) {
+		this.accnum = accnum;
+	}
+	public String getActccy() {
+		return actccy;
+	}
+	public void setActccy(String actccy) {
+		this.actccy = actccy;
+	}
+	public String getActtype() {
+		return acttype;
+	}
+	public void setActtype(String acttype) {
+		this.acttype = acttype;
+	}
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+	
+	
+
+	public int getCustId() {
+		return custId;
+	}
+	public void setCustId(int custId) {
+		this.custId = custId;
 	}
 	@Override
 	public String toString() {
-		return "Account [cust_id=" + cust_id + ", cust_name=" + cust_name + "]";
+		return "Customer [id=" + id + ", accnum=" + accnum + ", actccy=" + actccy + ", acttype=" + acttype
+				+ ", balance=" + balance + ", cust_id=" + custId + "]";
 	}
 	
 }
