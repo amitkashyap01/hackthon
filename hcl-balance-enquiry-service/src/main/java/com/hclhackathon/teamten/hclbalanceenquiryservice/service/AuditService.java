@@ -1,6 +1,7 @@
 package com.hclhackathon.teamten.hclbalanceenquiryservice.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,25 @@ public class AuditService {
 		
 		auditRepository.save(audit);
 		
+	}
+	
+	public void updateAuditLogsRequestIn(String message){
+		Transaction_Audit audit = new Transaction_Audit();
+		
+		audit.setImessage(message);
+		audit.setMessintime(new Date());
+		audit.setStatus("RECEIVED");
+		
+		auditRepository.save(audit);
+	}
+	
+	public void updateAuditLogsResponseOut(String message){
+		Transaction_Audit audit = new Transaction_Audit();
+		
+		audit.setImessage(message);
+		audit.setMessgouttime(new Date());
+		audit.setStatus("SENT");
+		
+		auditRepository.save(audit);
 	}
 }

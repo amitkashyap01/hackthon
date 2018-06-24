@@ -25,20 +25,21 @@ public class BalanceEnquiryController {
 	@Autowired
 	private AuditService auditService;
 
-	@RequestMapping(value="/customers/{cust_id}", method = RequestMethod.GET)
+	@RequestMapping(value="/{cust_id}", method = RequestMethod.GET)
 	public List<Account> checkTheBalance(@PathVariable("cust_id") int cust_id, @RequestHeader HttpHeaders headers){
-
+		auditService.updateAuditLogsRequestIn("Balance Inquiry for customer: "+cust_id);		
 		String requestType = headers.get("ReqType").get(0);
 
 		if(!requestType.equals("Ballnq")){
 			auditService.updateTheAuditLog("Invalid Request", "Fail");
-			
+		
 			throw new ReqTypeNotValidException("Request Type "+ requestType +" is NOT valid");
+
 		}else{
 			
 			System.out.println("Logging:  Customer Id: "+cust_id + " Request Type: "+headers.get("ReqType"));
 			auditService.updateTheAuditLog("Balance Enquiry processed successfully for customer id"+cust_id, "Success");
-			
+			auditService.updateAuditLogsResponseOut("Balnce Inquiry for customer: "+cust_id);
 			return accountService.getCustAccountBalance(cust_id);
 		}
 

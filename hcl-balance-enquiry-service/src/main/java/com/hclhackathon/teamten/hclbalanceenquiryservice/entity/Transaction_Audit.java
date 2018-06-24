@@ -23,7 +23,7 @@ public class Transaction_Audit {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
-	private Date messingtime;
+	private Date messintime;
 	private String status;
 	private int reason_code;
 
@@ -47,12 +47,12 @@ public class Transaction_Audit {
 		this.imessage = imessage;
 	}
 
-	public Date getMessingtime() {
-		return messingtime;
+	public Date getMessintime() {
+		return messintime;
 	}
 
-	public void setMessingtime(Date messingtime) {
-		this.messingtime = messingtime;
+	public void setMessintime(Date messingtime) {
+		this.messintime = messingtime;
 	}
 
 	public String getStatus() {
@@ -81,7 +81,7 @@ public class Transaction_Audit {
 
 	@Override
 	public String toString() {
-		return "Transaction_Audit [id=" + id + ", imessage=" + imessage + ", messingtime=" + messingtime + ", status="
+		return "Transaction_Audit [id=" + id + ", imessage=" + imessage + ", messintime=" + messintime + ", status="
 				+ status + ", reason_code=" + reason_code + ", messgouttime=" + messgouttime + "]";
 	}
 	
